@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
@@ -43,7 +44,11 @@ public class LemonHelloPanel extends RelativeLayout {
                 _PST.dpToPx(cornerRadius),
                 Path.Direction.CW
         );
-        canvas.clipPath(path, Region.Op.REPLACE);
+        if (Build.VERSION.SDK_INT < 28) {
+            canvas.clipPath(path, Region.Op.REPLACE);
+        } else {
+            canvas.clipPath(path);
+        }
     }
 
     @Override
